@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title> Letter</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f0e6; /* beige background */
+      font-family: "Georgia", serif;
+    }
+
+    .letter-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .main-letter {
+      width: 500px;
+      height: auto;
+      border: 2px solid #d6c6a8;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: block;
+    }
+
+    /* Adjustable beige rectangle button */
+    .envelope-btn {
+      position: absolute;
+      bottom: 124px;   /* adjust up/down */
+      left: 30px;     /* adjust left/right */
+      width: 202px;   /* adjust width */
+      height: 160px;  /* adjust height */
+      background: transparent; /* beige to blend */
+      border: 2px solid #c9b89a;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    /* Popup */
+    .popup-letter {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 80px;
+      height: 50px;
+      background: #fdf6e3;
+      border: 2px solid #c9b89a;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: all 0.6s ease-in-out;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      overflow: auto;  /* scrollbars appear horizontally & vertically if needed */
+
+    }
+
+    .popup-letter.open {
+      width: 90vw;
+      height: 100vh;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      padding: 1500px;
+      overflow: auto;  /* scrollbars appear horizontally & vertically if needed */
+
+    }
+
+    .popup-content {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out 0.5s;
+      text-align: center;
+      font-size: 1.2em;
+      color: #3b2f2f;
+      
+    }
+    .popup-letter.open .popup-content { opacity: 1; }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #3b2f2f;
+    }
+  </style>
+</head>
+<body>
+ <div class="letter-container">
+  <img src="letter.png" alt="Letter" class="main-letter" />
+  <button class="envelope-btn" id="envelopeBtn"></button>
+</div>
+
+<div class="popup-letter" id="popupLetter">
+  <button class="close-btn" id="closeBtn">&times;</button>
+  <div class="letter-content">
+    <img src="letter2.png" alt="Second Letter" class="second-letter"/>
+  </div>
+</div>
+
+<style>
+  .popup-letter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: transparent;  /* no ugly box */
+    border: none;
+    box-shadow: none;
+    z-index: 1000;
+    transition: transform 0.4s ease-in-out;
+    padding: 0;
+  }
+
+  .popup-letter.open {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .second-letter {
+    width: 600px;   /* 👈 same size as main letter */
+    height: 900px;
+    display: block;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+</style>
+
+<script>
+  const envelopeBtn = document.getElementById("envelopeBtn");
+  const popupLetter = document.getElementById("popupLetter");
+  const closeBtn = document.getElementById("closeBtn");
+
+  envelopeBtn.addEventListener("click", () => {
+    popupLetter.classList.add("open");
+  });
+
+  closeBtn.addEventListener("click", () => {
+    popupLetter.classList.remove("open");
+  });
+</script>
+
